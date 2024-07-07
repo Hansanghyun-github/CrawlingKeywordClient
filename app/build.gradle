@@ -6,12 +6,19 @@ android {
     namespace 'com.example.crawlingkeywordclient'
     compileSdk 33
 
+    buildFeatures {
+        buildConfig true
+    }
+
     defaultConfig {
         applicationId "com.example.crawlingkeywordclient"
         minSdk 27
         targetSdk 33
         versionCode 1
         versionName "1.0"
+
+        buildConfigField 'String', 'API_URL', "\"${API_URL}\""
+        buildConfigField 'String', 'SECRET_KEY', "\"${SECRET_KEY}\""
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
