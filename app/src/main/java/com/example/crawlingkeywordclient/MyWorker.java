@@ -55,7 +55,7 @@ public class MyWorker extends Worker {
             if (response.isSuccessful()) {
                 // Show notification with the result
                 NewTitlesResponse newTitlesResponse = response.body();
-                showNotification("HTTP Request Result", "Your HTTP request was successful!\n" + newTitlesResponse.toString());
+                showNotification("HTTP Request Result", newTitlesResponse.toString());
                 Log.i("HTTP Request Result", newTitlesResponse.toString());
             } else {
                 // Show notification with the error message

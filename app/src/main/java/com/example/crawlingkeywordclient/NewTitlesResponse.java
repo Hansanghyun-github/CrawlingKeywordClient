@@ -13,9 +13,8 @@ public class NewTitlesResponse {
 
     @Override
     public String toString() {
-        return "NewTitlesResponse{" +
-                "\n\tinflearnNewTitles=" + inflearnNewTitles +
-                ",\n\tokkyNewTitles=" + okkyNewTitles +
-                "\n}";
+        return "inflearnNewTitles=" + inflearnNewTitles +
+                "\nokkyNewTitles=" + okkyNewTitles +
+                "\n";
     }
 }
