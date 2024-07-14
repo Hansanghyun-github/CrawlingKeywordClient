@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">CrawlingKeywordClient</string>
+    <string name="okky_https_okky_kr_community_gathering_sort_id">okky: https://okky.kr/community/gathering?sort=ID
+    </string>
+    <string name="inflearn_https_www_inflearn_com_community_studies_order_recent">inflearn:
+        https://www.inflearn.com/community/studies?order=recent
+    </string>
 </resources>

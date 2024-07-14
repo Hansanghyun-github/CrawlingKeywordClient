@@ -11,6 +11,14 @@ public class NewTitlesResponse {
         this.okkyNewTitles = okkyNewTitles;
     }
 
+    public List<String> getInflearnNewTitles() {
+        return inflearnNewTitles;
+    }
+
+    public List<String> getOkkyNewTitles() {
+        return okkyNewTitles;
+    }
+
     @Override
     public String toString() {
         return "inflearnNewTitles=" + inflearnNewTitles +

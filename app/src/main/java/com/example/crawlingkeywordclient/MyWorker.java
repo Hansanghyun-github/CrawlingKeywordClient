@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.work.Data;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 import android.app.NotificationChannel;
@@ -13,6 +14,7 @@ import android.os.Build;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -55,20 +57,34 @@ public class MyWorker extends Worker {
             if (response.isSuccessful()) {
                 // Show notification with the result
                 NewTitlesResponse newTitlesResponse = response.body();
-                showNotification("HTTP Request Result", newTitlesResponse.toString());
-                Log.i("HTTP Request Result", newTitlesResponse.toString());
+
+                if(isEmpty(newTitlesResponse)){
+                    return Result.success();
+                }
+
+                String message = "#inflearn: " + newTitlesResponse.getInflearnNewTitles().size()
+                        + "\n#okky: " + newTitlesResponse.getOkkyNewTitles().size();
+                showNotification("키워드에 해당하는 새로운 글이 등록됐습니다.", "\n" + message);
+                return Result.success();
             } else {
                 // Show notification with the error message
-                showNotification("HTTP Request Error", "Your HTTP request failed: " + response.errorBody().string());
+                showNotification("HTTP Request Error", response.errorBody().string());
                 Log.i("HTTP Request Error", response.errorBody().string());
+                return Result.failure();
             }
         } catch (Exception e) {
             // Show notification with the exception message
-            showNotification("HTTP Request Exception", "An exception occurred: " + e.getMessage());
+            showNotification("HTTP Request Exception", e.getMessage());
             Log.e("HTTP Request Exception", e.getMessage());
         }
 
-        return Result.success();
+        return Result.failure();
+    }
+
+    private static boolean isEmpty(NewTitlesResponse newTitlesResponse) {
+        return newTitlesResponse == null ||
+                (newTitlesResponse.getOkkyNewTitles() == null || newTitlesResponse.getOkkyNewTitles().isEmpty()) &&
+                        (newTitlesResponse.getInflearnNewTitles() == null || newTitlesResponse.getInflearnNewTitles().isEmpty());
     }
 
     private void showNotification(String title, String message) {
